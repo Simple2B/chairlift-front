@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.sass';
-import SignIn from './components/SingIn/SingIn';
+import SignIn from './components/SingIn/SignIn';
 
 function App() {
   return (

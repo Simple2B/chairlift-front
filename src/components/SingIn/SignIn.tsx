@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './SingIn.sass';
+import './SignIn.sass';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -33,9 +33,13 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 //   );
 // }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface ISignIn {}
+
 const theme = createTheme();
 
-const SignIn = () => {
+// eslint-disable-next-line no-empty-pattern
+const SignIn: React.FC<ISignIn> = ({}) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
