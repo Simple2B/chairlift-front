@@ -3,6 +3,3 @@
 
 # npm test
 yarn lint-staged
-# yarn test:ci
-# yarn validate-branch-name
-# yarn lint-staged
