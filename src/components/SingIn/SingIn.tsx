@@ -54,7 +54,6 @@ const SignIn = () => {
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box sx={{ flexGrow: 1 }}>
             <AppBar
-              //   position="relative"
               position="static"
               color="transparent"
               classes={{}}
@@ -70,12 +69,7 @@ const SignIn = () => {
                   sx={{
                     fontSize: '18px',
                     fontWeight: '900',
-                    fontFamily: [
-                      'Roboto',
-                      'Helvetica Neue',
-                      'Arial',
-                      'sans-serif',
-                    ],
+                    fontFamily: ['Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
                     fontStyle: 'italic',
                     cursor: 'pointer',
                   }}
@@ -121,12 +115,7 @@ const SignIn = () => {
             <Typography component="h1" variant="h5">
               Sign In To Your Altium Account
             </Typography>
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
-              sx={{ mt: 1 }}
-            >
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
@@ -177,7 +166,6 @@ const SignIn = () => {
             </Box>
           </Box>
         </Grid>
-
         <Grid
           item
           xs={false}
