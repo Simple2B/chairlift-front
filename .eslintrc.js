@@ -1,14 +1,20 @@
 module.exports = {
-  env: {
-    browser: true,
-    es2021: true
-  },
-  extends: ['plugin:react/recommended', 'standard-with-typescript'],
-  overrides: [],
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module'
-  },
-  plugins: ['react'],
-  rules: {}
-}
+    root: true,
+    env: {
+        node: true,
+    },
+    globals: {
+        Promise: 'readonly',
+    },
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+        sourceType: 'module',
+        tsconfigRootDir: __dirname,
+        // project: ['./tsconfig.eslint.json'],
+    },
+    rules: {
+        '@typescript-eslint/no-var-requires': 0,
+    },
+    plugins: ['@typescript-eslint', 'react', 'react-hooks'],
+    extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+};
