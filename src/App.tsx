@@ -16,7 +16,9 @@ const App: React.FC<IApp> = ({}) => {
 
   useEffect(() => {
     const onPageLoad = () => {
-      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(true);
+      }, 1500);
     };
 
     // Check if the page has already loaded
@@ -35,7 +37,12 @@ const App: React.FC<IApp> = ({}) => {
         <Grid
           container
           component="main"
-          sx={{ width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center' }}
+          sx={{
+            width: '100vw',
+            height: '100vh',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
         >
           <Box
             sx={{
