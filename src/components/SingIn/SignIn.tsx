@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import './SignIn.sass';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,14 +14,20 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AppBar, Toolbar } from '@mui/material';
 import logoBG from '../../img/logoBG.jpeg';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { GoogleLogin } from 'react-google-login';
+import { useNavigate } from 'react-router-dom';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ISignIn {}
 
 const theme = createTheme();
 
+const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
 // eslint-disable-next-line no-empty-pattern
 const SignIn: React.FC<ISignIn> = ({}) => {
+  const navigate = useNavigate();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -32,6 +38,16 @@ const SignIn: React.FC<ISignIn> = ({}) => {
   };
 
   const matches = useMediaQuery('(min-width:600px)');
+
+  const onSuccess = (res: any) => {
+    console.log('LOGIN SUCCESS! Current user', res.profileObj);
+    navigate('/');
+    localStorage.setItem('user', JSON.stringify(res.profileObj));
+  };
+
+  const onFailure = (res: any) => {
+    console.log('LOGIN FAILED! res', res);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -143,7 +159,14 @@ const SignIn: React.FC<ISignIn> = ({}) => {
 
               <div className="socialContainer">
                 <Link href="#" className="social">
-                  <GoogleIcon />
+                  <GoogleLogin
+                    clientId={GOOGLE_CLIENT_ID ?? ''}
+                    render={(renderProps) => <GoogleIcon onClick={renderProps.onClick} />}
+                    onSuccess={onSuccess}
+                    onFailure={onFailure}
+                    cookiePolicy={'single_host_origin'}
+                    isSignedIn={true}
+                  />
                 </Link>
                 <Link href="#" className="social">
                   <AppleIcon />

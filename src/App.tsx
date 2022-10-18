@@ -4,6 +4,8 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Loader from './components/common/Loader/Loader';
 import SignIn from './components/SingIn/SignIn';
+import Home from './components/Home/Home';
+import { Routes, Route } from 'react-router-dom';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IApp {}
@@ -27,13 +29,9 @@ const App: React.FC<IApp> = ({}) => {
     }
   }, []);
 
-  console.log('isLoading', isLoading);
-
   return (
-    <div className="App">
-      {isLoading ? (
-        <SignIn />
-      ) : (
+    <>
+      {!isLoading && (
         <Grid
           container
           component="main"
@@ -52,7 +50,11 @@ const App: React.FC<IApp> = ({}) => {
           </Box>
         </Grid>
       )}
-    </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/signin" element={<SignIn />} />
+      </Routes>
+    </>
   );
 };
 
