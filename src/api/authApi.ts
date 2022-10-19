@@ -13,10 +13,7 @@ const formatRequestBody = (email: string, password: string) => {
 };
 
 export const authApi = {
-  signin: async (
-    email: string,
-    password: string,
-  ): Promise<{ access_token: string; token_type: string }> => {
+  signin: async (email: string, password: string): Promise<void> => {
     try {
       const response = await authInstance.post('/login', formatRequestBody(email, password));
       console.log('POST [/sign_in] response received successfully');
@@ -28,9 +25,7 @@ export const authApi = {
   },
 
   // google_login
-  googleSignin: async (
-    user_data: IRequestGoogleUser,
-  ): Promise<{ access_token: string; token_type: string }> => {
+  googleSignin: async (user_data: IRequestGoogleUser): Promise<void> => {
     try {
       const response = await instance().post('/google_login', user_data);
       console.log('POST googleSignin successfully', response.data);
