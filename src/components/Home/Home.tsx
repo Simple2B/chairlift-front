@@ -16,9 +16,9 @@ import { logout } from '../../store/slices/Authentication/AuthenticationGoogleSl
 import { useSelector } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
 
-const Copyright = (props: any) => {
+const Copyright = () => {
   return (
-    <Typography variant="body2" color="rgba(255, 255, 255, 0.9)" align="center" {...props}>
+    <Typography variant="body2" color="rgba(255, 255, 255, 0.9)" align="center">
       {' © '}
       <Link color="inherit" href="https://snodar.io/">
         SNOdar

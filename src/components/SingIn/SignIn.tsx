@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './SignIn.sass';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,7 +18,6 @@ import { GoogleLogin } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useSelector } from 'react-redux';
 import { authenticationGoogle } from '../../store/slices/Authentication/AuthenticationGoogleSlices';
 import { useAppDispatch } from '../../store';
 
@@ -65,7 +64,6 @@ const SignIn: React.FC<ISignIn> = ({}) => {
 
   const onSignInSuccess = (res: any) => {
     console.log('LOGIN SUCCESS! Current user', res.profileObj);
-    console.log('LOGIN SUCCESS! res', res);
     // setIsGoogleAuthSuccess(true);
     // signIn
     const data = {
