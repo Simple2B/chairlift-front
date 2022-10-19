@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './SignIn.sass';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,7 +18,7 @@ import { GoogleLogin } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { authenticationGoogle } from '../../store/slices/Authentication/AuthenticationGoogleSlices';
 import { useAppDispatch } from '../../store';
 
@@ -33,9 +33,9 @@ const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const SignIn: React.FC<ISignIn> = ({}) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const state = useSelector((state: any) => state.auth);
+  // const state = useSelector((state: any) => state.auth);
 
-  const [isGoogleAuthSuccess, setIsGoogleAuthSuccess] = useState<boolean>(false);
+  // const [isGoogleAuthSuccess, setIsGoogleAuthSuccess] = useState<boolean>(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -44,8 +44,8 @@ const SignIn: React.FC<ISignIn> = ({}) => {
       email: data.get('email'),
       password: data.get('password'),
     });
-    const email = data.get('email')?.toString();
-    const password = data.get('password')?.toString();
+    // const email = data.get('email')?.toString();
+    // const password = data.get('password')?.toString();
     // authApi.signin(email ?? '', password ?? '');
   };
 
@@ -66,7 +66,7 @@ const SignIn: React.FC<ISignIn> = ({}) => {
   const onSignInSuccess = (res: any) => {
     console.log('LOGIN SUCCESS! Current user', res.profileObj);
     console.log('LOGIN SUCCESS! res', res);
-    setIsGoogleAuthSuccess(true);
+    // setIsGoogleAuthSuccess(true);
     // signIn
     const data = {
       email: res.profileObj.email,
@@ -80,12 +80,12 @@ const SignIn: React.FC<ISignIn> = ({}) => {
       navigate('/');
     }, 3500);
     notify();
-    setIsGoogleAuthSuccess(false);
+    // setIsGoogleAuthSuccess(false);
   };
 
   const onFailure = (res: any) => {
     console.log('LOGIN FAILED! res', res);
-    setIsGoogleAuthSuccess(false);
+    // setIsGoogleAuthSuccess(false);
   };
 
   return (

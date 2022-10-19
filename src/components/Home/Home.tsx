@@ -11,11 +11,10 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { GoogleLogout } from 'react-google-login';
 import { gapi } from 'gapi-script';
-import { IGoogleUser } from '../../types/user';
-import Avatar from '@mui/material/Avatar';
 import { RootState, useAppDispatch } from '../../store';
 import { logout } from '../../store/slices/Authentication/AuthenticationGoogleSlices';
 import { useSelector } from 'react-redux';
+import Avatar from '@mui/material/Avatar';
 
 const Copyright = (props: any) => {
   return (
