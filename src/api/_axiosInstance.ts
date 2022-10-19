@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 
-const API_URI = process.env.NEXT_PUBLIC_API_URL;
+const API_URI = process.env.REACT_APP_PUBLIC_API_URL;
 
 export const instance = (): AxiosInstance => {
   return axios.create({

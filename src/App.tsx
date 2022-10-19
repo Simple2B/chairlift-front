@@ -13,14 +13,12 @@ export interface IApp {}
 // eslint-disable-next-line no-empty-pattern
 const App: React.FC<IApp> = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
-
   useEffect(() => {
     const onPageLoad = () => {
       setTimeout(() => {
         setIsLoading(true);
       }, 1500);
     };
-
     // Check if the page has already loaded
     if (document.readyState === 'complete') {
       onPageLoad();

@@ -6,3 +6,10 @@ export interface IGoogleUser {
   imageUrl: string;
   name: string;
 }
+
+export interface IRequestGoogleUser {
+  email: string;
+  username: string;
+  google_openid_key: string;
+  picture?: string;
+}

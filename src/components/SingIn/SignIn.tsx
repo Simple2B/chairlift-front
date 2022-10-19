@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './SignIn.sass';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,6 +16,9 @@ import logoBG from '../../img/logoBG.jpeg';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { GoogleLogin } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { authApi } from '../../api/authApi';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ISignIn {}
@@ -27,6 +30,7 @@ const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 // eslint-disable-next-line no-empty-pattern
 const SignIn: React.FC<ISignIn> = ({}) => {
   const navigate = useNavigate();
+  const [isGoogleAuthSuccess, setIsGoogleAuthSuccess] = useState<boolean>(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -35,19 +39,58 @@ const SignIn: React.FC<ISignIn> = ({}) => {
       email: data.get('email'),
       password: data.get('password'),
     });
+    const email = data.get('email')?.toString();
+    const password = data.get('password')?.toString();
+    authApi.signin(email ?? '', password ?? '');
   };
 
   const matches = useMediaQuery('(min-width:600px)');
 
-  const onSuccess = (res: any) => {
+  const notify = () =>
+    toast('LOGIN SUCCESS!', {
+      position: 'top-left',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+
+  const onSignInSuccess = (res: any) => {
     console.log('LOGIN SUCCESS! Current user', res.profileObj);
-    navigate('/');
+    console.log('LOGIN SUCCESS! res', res);
+    setIsGoogleAuthSuccess(true);
+    // signIn
+    const data = {
+      email: res.profileObj.email,
+      username: res.profileObj.name,
+      google_openid_key: res.profileObj.googleId,
+      picture: res.profileObj.imageUrl,
+    };
+    authApi.googleSignin(data);
+    setTimeout(() => {
+      navigate('/');
+    }, 3500);
     localStorage.setItem('user', JSON.stringify(res.profileObj));
+    notify();
+    setIsGoogleAuthSuccess(false);
   };
 
   const onFailure = (res: any) => {
     console.log('LOGIN FAILED! res', res);
+    setIsGoogleAuthSuccess(false);
   };
+
+  // useEffect(() => {
+  //   if (isGoogleAuthSuccess) {
+  //     setTimeout(() => {
+  //       navigate('/');
+  //       setIsGoogleAuthSuccess(false);
+  //     }, 3500);
+  //   }
+  // }, [isGoogleAuthSuccess]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -158,11 +201,25 @@ const SignIn: React.FC<ISignIn> = ({}) => {
               </div>
 
               <div className="socialContainer">
+                <div>
+                  <ToastContainer
+                    position="top-left"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                  />
+                </div>
                 <Link href="#" className="social">
                   <GoogleLogin
                     clientId={GOOGLE_CLIENT_ID ?? ''}
                     render={(renderProps) => <GoogleIcon onClick={renderProps.onClick} />}
-                    onSuccess={onSuccess}
+                    onSuccess={onSignInSuccess}
                     onFailure={onFailure}
                     cookiePolicy={'single_host_origin'}
                     isSignedIn={true}

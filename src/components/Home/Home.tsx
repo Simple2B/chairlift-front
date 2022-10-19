@@ -31,6 +31,7 @@ const Copyright = (props: any) => {
 export interface IHome {}
 
 const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 
 // eslint-disable-next-line no-empty-pattern
 const Home: React.FC<IHome> = () => {
@@ -39,7 +40,7 @@ const Home: React.FC<IHome> = () => {
     function start() {
       gapi.client.init({
         clientId: GOOGLE_CLIENT_ID,
-        scope: '',
+        apiKey: GOOGLE_API_KEY,
       });
     }
     gapi.load('client:auth2', start);
@@ -51,10 +52,12 @@ const Home: React.FC<IHome> = () => {
   // const accessToken = gapi.auth.getToken().access_token;
   console.log('user ', user);
 
-  const onSuccess = () => {
+  const onLogoutSuccess = () => {
     console.log('LOGOUT success ');
     localStorage.removeItem('user');
+    setUser(null);
   };
+
   return (
     <Grid
       container
@@ -97,19 +100,19 @@ const Home: React.FC<IHome> = () => {
         {user?.googleId && (
           <Avatar alt={'avatar'} src={user?.imageUrl} sx={{ marginRight: '7px' }} />
         )}
-        <ReactLink to="/signin">
-          {user?.googleId ? (
-            <GoogleLogout
-              clientId={GOOGLE_CLIENT_ID ?? ''}
-              render={(renderProps) => (
-                <LogoutIcon sx={{ color: 'white' }} onClick={renderProps.onClick} />
-              )}
-              onLogoutSuccess={onSuccess}
-            />
-          ) : (
+        {user ? (
+          <GoogleLogout
+            clientId={GOOGLE_CLIENT_ID ?? ''}
+            render={(renderProps) => (
+              <LogoutIcon sx={{ color: 'white' }} onClick={renderProps.onClick} />
+            )}
+            onLogoutSuccess={onLogoutSuccess}
+          />
+        ) : (
+          <ReactLink to="/signin">
             <LoginIcon sx={{ color: 'white' }} />
-          )}
-        </ReactLink>
+          </ReactLink>
+        )}
       </Box>
       <Box
         component="div"

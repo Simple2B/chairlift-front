@@ -1,4 +1,5 @@
-import { authInstance } from './_axiosInstance';
+import { IRequestGoogleUser } from '../types/user';
+import { authInstance, instance } from './_axiosInstance';
 
 const formatRequestBody = (email: string, password: string) => {
   const formData = new FormData();
@@ -22,7 +23,7 @@ const formatRequestBodyApiKey = (password: string, api_key: string) => {
 export const authApi = {
   signin: async (email: string, password: string): Promise<any> => {
     try {
-      const response = await authInstance.post('/user/sign_in', { email, password });
+      const response = await authInstance.post('/login', formatRequestBody(email, password));
       console.log('POST [/sign_in] response received successfully');
       return response.data;
     } catch (error: any) {
@@ -31,17 +32,15 @@ export const authApi = {
     }
   },
 
-  //   setPassword: async (password: string, api_key: string): Promise<void> => {
-  //     try {
-  //       const response = await authInstance.post(
-  //         '/auth/sign_up',
-  //         formatRequestBodyApiKey(password, api_key),
-  //       );
-  //       console.log(`POST [/sing_up/${api_key}] response received successfully`);
-  //       return response.data;
-  //     } catch (error: any) {
-  //       console.log(`POST [/sing_up/${api_key}] error message: ${error.message}`);
-  //       throw error;
-  //     }
-  //   },
+  // google_login
+  googleSignin: async (user_data: IRequestGoogleUser): Promise<any> => {
+    try {
+      const response = await instance().post('/google_login', user_data);
+      console.log('POST googleSignin successfully', response.data);
+      return response.data;
+    } catch (error: any) {
+      console.log(`POST googleSignin => error message: ${error.message}`);
+      throw error;
+    }
+  },
 };
