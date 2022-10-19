@@ -13,6 +13,9 @@ import { GoogleLogout } from 'react-google-login';
 import { gapi } from 'gapi-script';
 import { IGoogleUser } from '../../types/user';
 import Avatar from '@mui/material/Avatar';
+import { RootState, useAppDispatch } from '../../store';
+import { logout } from '../../store/slices/Authentication/AuthenticationGoogleSlices';
+import { useSelector } from 'react-redux';
 
 const Copyright = (props: any) => {
   return (
@@ -35,7 +38,12 @@ const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 
 // eslint-disable-next-line no-empty-pattern
 const Home: React.FC<IHome> = () => {
-  const [user, setUser] = useState<IGoogleUser | null>(null);
+  // const [user, setUser] = useState<IGoogleUser | null>(null);
+  const [userToken, setUserToken] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
+  const user = useSelector((state: RootState) => state.auth.userInfo);
+  const success = useSelector((state: RootState) => state.auth.success);
+
   useEffect(() => {
     function start() {
       gapi.client.init({
@@ -44,8 +52,8 @@ const Home: React.FC<IHome> = () => {
       });
     }
     gapi.load('client:auth2', start);
-    const authUser = localStorage.getItem('user');
-    if (authUser) setUser(JSON.parse(authUser ?? ''));
+    const token = localStorage.getItem('userToken');
+    if (token) setUserToken(token);
   }, []);
 
   // get accessToken
@@ -54,8 +62,8 @@ const Home: React.FC<IHome> = () => {
 
   const onLogoutSuccess = () => {
     console.log('LOGOUT success ');
-    localStorage.removeItem('user');
-    setUser(null);
+    dispatch(logout());
+    setUserToken(null);
   };
 
   return (
@@ -97,10 +105,8 @@ const Home: React.FC<IHome> = () => {
         title="login"
       >
         {' '}
-        {user?.googleId && (
-          <Avatar alt={'avatar'} src={user?.imageUrl} sx={{ marginRight: '7px' }} />
-        )}
-        {user ? (
+        {success && <Avatar alt={'avatar'} src={user.picture} sx={{ marginRight: '7px' }} />}
+        {userToken ? (
           <GoogleLogout
             clientId={GOOGLE_CLIENT_ID ?? ''}
             render={(renderProps) => (

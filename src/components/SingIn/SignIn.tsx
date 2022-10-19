@@ -18,7 +18,9 @@ import { GoogleLogin } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { authApi } from '../../api/authApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { authenticationGoogle } from '../../store/slices/Authentication/AuthenticationGoogleSlices';
+import { useAppDispatch } from '../../store';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ISignIn {}
@@ -30,6 +32,9 @@ const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 // eslint-disable-next-line no-empty-pattern
 const SignIn: React.FC<ISignIn> = ({}) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const state = useSelector((state: any) => state.auth);
+
   const [isGoogleAuthSuccess, setIsGoogleAuthSuccess] = useState<boolean>(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -41,7 +46,7 @@ const SignIn: React.FC<ISignIn> = ({}) => {
     });
     const email = data.get('email')?.toString();
     const password = data.get('password')?.toString();
-    authApi.signin(email ?? '', password ?? '');
+    // authApi.signin(email ?? '', password ?? '');
   };
 
   const matches = useMediaQuery('(min-width:600px)');
@@ -69,11 +74,11 @@ const SignIn: React.FC<ISignIn> = ({}) => {
       google_openid_key: res.profileObj.googleId,
       picture: res.profileObj.imageUrl,
     };
-    authApi.googleSignin(data);
+    // authApi.googleSignin(data);
+    dispatch(authenticationGoogle(data));
     setTimeout(() => {
       navigate('/');
     }, 3500);
-    localStorage.setItem('user', JSON.stringify(res.profileObj));
     notify();
     setIsGoogleAuthSuccess(false);
   };
@@ -82,15 +87,6 @@ const SignIn: React.FC<ISignIn> = ({}) => {
     console.log('LOGIN FAILED! res', res);
     setIsGoogleAuthSuccess(false);
   };
-
-  // useEffect(() => {
-  //   if (isGoogleAuthSuccess) {
-  //     setTimeout(() => {
-  //       navigate('/');
-  //       setIsGoogleAuthSuccess(false);
-  //     }, 3500);
-  //   }
-  // }, [isGoogleAuthSuccess]);
 
   return (
     <ThemeProvider theme={theme}>
