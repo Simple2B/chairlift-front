@@ -1,4 +1,3 @@
-import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Home from './Home';
 import { Provider } from 'react-redux';
@@ -8,7 +7,6 @@ export default {
   title: 'Page/Home',
   component: Home,
   parameters: {
-    // More on Story layout: https://storybook.js.org/docs/react/configure/story-layout
     layout: 'fullscreen',
   },
   decorators: [

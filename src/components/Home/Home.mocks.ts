@@ -2,6 +2,6 @@ import { IHome } from './Home';
 
 const base: IHome = {};
 
-export const mockCardProps = {
+export const mockHomeProps = {
   base,
 };

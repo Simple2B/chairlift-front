@@ -9,21 +9,3 @@ test('should render', () => {
   // expect(screen.getByRole('div'));
   // expect(screen.getByRole('div')).toHaveTextContent('');
 });
-// version 2
-// import { render, screen } from '@testing-library/react';
-// import SignIn from './SignIn';
-// import '@testing-library/jest-dom';
-
-// describe('Card', () => {
-//   it('renders a heading', () => {
-//     render(
-//       <SignIn/>
-//     );
-
-//     const heading = screen.getByRole('heading', {
-//       name: /welcome to next\.js!/i,
-//     });
-
-//     expect(heading).toBeInTheDocument();
-//   });
-// });
