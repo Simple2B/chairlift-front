@@ -116,7 +116,7 @@ const Home: React.FC<IHome> = () => {
             onLogoutSuccess={onLogoutSuccess}
           />
         ) : (
-          <ReactLink to="/signin">
+          <ReactLink to="/auth">
             <LoginIcon sx={{ color: 'white' }} />
           </ReactLink>
         )}

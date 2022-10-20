@@ -2,6 +2,6 @@ import { ISignIn } from './SignIn';
 
 const base: ISignIn = {};
 
-export const mockCardProps = {
+export const mockSignInProps = {
   base,
 };
