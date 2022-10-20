@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Forms.sass';
+import { Link as ReactLink } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
@@ -11,8 +12,8 @@ import { AppBar, Toolbar } from '@mui/material';
 import logoBG from '../../img/logoBG.jpeg';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import 'react-toastify/dist/ReactToastify.css';
-import SignUp from '../SignUp/SignUp';
-import SignIn from '../SingIn/SignIn';
+import SignUp from './SignUp/SignUp';
+import SignIn from './SingIn/SignIn';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IForms {}
@@ -52,7 +53,7 @@ const Forms: React.FC<IForms> = ({}) => {
                     cursor: 'pointer',
                   }}
                 >
-                  Altium
+                  <ReactLink to="/">Altium</ReactLink>
                 </Typography>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
                 <Typography
@@ -77,6 +78,7 @@ const Forms: React.FC<IForms> = ({}) => {
                       color: 'black',
                     }}
                     onClick={() => setIsSignUp(false)}
+                    href="#sign_in"
                   >
                     Sign In
                   </Link>
@@ -93,8 +95,9 @@ const Forms: React.FC<IForms> = ({}) => {
                       color: 'black',
                     }}
                     onClick={() => setIsSignUp(true)}
+                    href="#sign_up"
                   >
-                    Register an account
+                    Sign Up
                   </Link>
                 )}
               </Toolbar>

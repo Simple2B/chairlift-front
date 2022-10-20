@@ -3,10 +3,10 @@ import './App.sass';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Loader from './components/common/Loader/Loader';
-import SignIn from './components/SingIn/SignIn';
+import SignIn from './components/Forms/SingIn/SignIn';
 import Home from './components/Home/Home';
 import { Routes, Route } from 'react-router-dom';
-import SignUp from './components/SignUp/SignUp';
+import SignUp from './components/Forms/SignUp/SignUp';
 import Forms from './components/Forms/Forms';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

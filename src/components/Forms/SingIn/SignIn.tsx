@@ -10,8 +10,8 @@ import { GoogleLogin } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { authenticationGoogle } from '../../store/slices/Authentication/AuthenticationGoogleSlices';
-import { useAppDispatch } from '../../store';
+import { authenticationGoogle } from '../../../store/slices/Authentication/AuthenticationGoogleSlices';
+import { useAppDispatch } from '../../../store';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ISignIn {}
