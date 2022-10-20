@@ -40,8 +40,8 @@ const Home: React.FC<IHome> = () => {
   // const [user, setUser] = useState<IGoogleUser | null>(null);
   const [userToken, setUserToken] = useState<string | null>(null);
   const dispatch = useAppDispatch();
-  const user = useSelector((state: RootState) => state.auth.userInfo);
-  const success = useSelector((state: RootState) => state.auth.success);
+  const user = useSelector((state: RootState) => state.user.userInfo);
+  const success = useSelector((state: RootState) => state.user.success);
 
   useEffect(() => {
     function start() {
@@ -55,9 +55,11 @@ const Home: React.FC<IHome> = () => {
     if (token) setUserToken(token);
   }, []);
 
+  // Token from google
   // get accessToken
   // const accessToken = gapi.auth.getToken().access_token;
-  console.log('user ', user);
+  console.log('user: picture ===>', user.picture);
+  console.log('success ===>', success);
 
   const onLogoutSuccess = () => {
     console.log('LOGOUT success ');

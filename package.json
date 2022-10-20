@@ -109,6 +109,7 @@
     "react-router-dom": "^6.4.2",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
+    "reduxjs-toolkit-persist": "^7.2.1",
     "sass": "^1.55.0",
     "storybook-addon-react-router-v6": "^0.2.1",
     "storybook-react-router": "^1.0.8",
