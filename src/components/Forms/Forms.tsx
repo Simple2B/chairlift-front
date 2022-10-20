@@ -42,6 +42,8 @@ const Forms: React.FC<IForms> = ({}) => {
                 flexDirection: 'space-between',
               }}
             >
+              {/* TODO: it is must remove , it's only for test */}
+              {/* <ReactLink to={`/reset_password/${'123456789'}`}>Registration</ReactLink> */}
               <Toolbar>
                 <Typography
                   color="black"
