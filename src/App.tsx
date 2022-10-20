@@ -6,6 +6,7 @@ import Loader from './components/common/Loader/Loader';
 import SignIn from './components/SingIn/SignIn';
 import Home from './components/Home/Home';
 import { Routes, Route } from 'react-router-dom';
+import SignUp from './components/SignUp/SignUp';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IApp {}
@@ -58,6 +59,7 @@ const App: React.FC<IApp> = ({}) => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
+        {/* <Route path="/signup" element={<SignUp />} /> */}
       </Routes>
     </>
   );

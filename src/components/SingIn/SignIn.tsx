@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './SignIn.sass';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
+import { Link as ReactLink } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -20,6 +21,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { authenticationGoogle } from '../../store/slices/Authentication/AuthenticationGoogleSlices';
 import { useAppDispatch } from '../../store';
+import SignUp from '../SignUp/SignUp';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ISignIn {}
@@ -32,6 +34,8 @@ const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const SignIn: React.FC<ISignIn> = ({}) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [isSignUp, setIsSignUp] = useState(false);
+
   // const state = useSelector((state: any) => state.auth);
 
   // const [isGoogleAuthSuccess, setIsGoogleAuthSuccess] = useState<boolean>(false);
@@ -125,20 +129,39 @@ const SignIn: React.FC<ISignIn> = ({}) => {
                 >
                   New to Altium?
                 </Typography>
-                <Link
-                  sx={{
-                    fontSize: '14px',
-                    textDecoration: 'none',
-                    cursor: 'pointer',
-                    padding: '7px 25px',
-                    marginLeft: '8px',
-                    border: '1px solid rgba(0, 0, 0, 0.3)',
-                    borderRadius: '57px',
-                    color: 'black',
-                  }}
-                >
-                  Register an account
-                </Link>
+                {isSignUp ? (
+                  <Link
+                    sx={{
+                      fontSize: '14px',
+                      textDecoration: 'none',
+                      cursor: 'pointer',
+                      padding: '7px 25px',
+                      marginLeft: '8px',
+                      border: '1px solid rgba(0, 0, 0, 0.3)',
+                      borderRadius: '57px',
+                      color: 'black',
+                    }}
+                    onClick={() => setIsSignUp(false)}
+                  >
+                    Sign In
+                  </Link>
+                ) : (
+                  <Link
+                    sx={{
+                      fontSize: '14px',
+                      textDecoration: 'none',
+                      cursor: 'pointer',
+                      padding: '7px 25px',
+                      marginLeft: '8px',
+                      border: '1px solid rgba(0, 0, 0, 0.3)',
+                      borderRadius: '57px',
+                      color: 'black',
+                    }}
+                    onClick={() => setIsSignUp(true)}
+                  >
+                    Register an account
+                  </Link>
+                )}
               </Toolbar>
             </AppBar>
           </Box>
@@ -152,78 +175,82 @@ const SignIn: React.FC<ISignIn> = ({}) => {
             }}
           >
             <Typography component="h1" variant="h5">
-              Sign In To Your Altium Account
+              {isSignUp ? 'Sign Up' : 'Sign In To Your Altium Account'}
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <div style={{ width: '100%', textAlign: 'right' }}>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </div>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2, borderRadius: '50px' }}
-              >
-                Sign In
-              </Button>
-              <div className="hr">
-                <div></div>
-                <div>Or Sign in with</div>
-                <div></div>
-              </div>
-
-              <div className="socialContainer">
-                <div>
-                  <ToastContainer
-                    position="top-left"
-                    autoClose={3000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="light"
-                  />
+            {isSignUp ? (
+              <SignUp />
+            ) : (
+              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                />
+                <div style={{ width: '100%', textAlign: 'right' }}>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
                 </div>
-                <Link href="#" className="social">
-                  <GoogleLogin
-                    clientId={GOOGLE_CLIENT_ID ?? ''}
-                    render={(renderProps) => <GoogleIcon onClick={renderProps.onClick} />}
-                    onSuccess={onSignInSuccess}
-                    onFailure={onFailure}
-                    cookiePolicy={'single_host_origin'}
-                    isSignedIn={true}
-                  />
-                </Link>
-                <Link href="#" className="social">
-                  <AppleIcon />
-                </Link>
-              </div>
-            </Box>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2, borderRadius: '50px' }}
+                >
+                  Sign In
+                </Button>
+                <div className="hr">
+                  <div></div>
+                  <div>Or Sign in with</div>
+                  <div></div>
+                </div>
+
+                <div className="socialContainer">
+                  <div>
+                    <ToastContainer
+                      position="top-left"
+                      autoClose={3000}
+                      hideProgressBar={false}
+                      newestOnTop={false}
+                      closeOnClick
+                      rtl={false}
+                      pauseOnFocusLoss
+                      draggable
+                      pauseOnHover
+                      theme="light"
+                    />
+                  </div>
+                  <Link href="#" className="social">
+                    <GoogleLogin
+                      clientId={GOOGLE_CLIENT_ID ?? ''}
+                      render={(renderProps) => <GoogleIcon onClick={renderProps.onClick} />}
+                      onSuccess={onSignInSuccess}
+                      onFailure={onFailure}
+                      cookiePolicy={'single_host_origin'}
+                      isSignedIn={true}
+                    />
+                  </Link>
+                  <Link href="#" className="social">
+                    <AppleIcon />
+                  </Link>
+                </div>
+              </Box>
+            )}
           </Box>
         </Grid>
         <Grid
