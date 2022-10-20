@@ -3,13 +3,12 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { store } from '../../store/index';
 
-import SignIn from './SignIn';
+import Profile from './Profile';
 
 export default {
-  title: 'Forms/SingIn',
-  component: SignIn,
+  title: 'page/Profile',
+  component: Profile,
   parameters: {
-    // More on Story layout: https://storybook.js.org/docs/react/configure/story-layout
     layout: 'fullscreen',
   },
   decorators: [
@@ -19,11 +18,12 @@ export default {
       </Provider>
     ),
   ],
-} as ComponentMeta<typeof SignIn>;
+} as ComponentMeta<typeof Profile>;
 
-const Template: ComponentStory<typeof SignIn> = (args) => <SignIn {...args} />;
+const Template: ComponentStory<typeof Profile> = (args) => <Profile {...args} />;
 
-export const SingIn = Template.bind({});
-SingIn.args = {
-  user: {},
-};
+export const ProfileComponent = Template.bind({});
+ProfileComponent.args = {};
+
+// export const LoggedOut = Template.bind({});
+// LoggedOut.args = {};

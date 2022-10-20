@@ -20,7 +20,7 @@ const userPersistConfig = {
   storage: storageSession,
 };
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   user: persistReducer(userPersistConfig, authGoogleSlice),
 });
 
