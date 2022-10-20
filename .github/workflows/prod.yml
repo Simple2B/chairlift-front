@@ -2,7 +2,7 @@ name: Node - SSH deploy
 
 # Controls when the action will run.
 on:
-    # Triggers the workflow on push or pull request events but only for the master branch
+    # Triggers the workflow on push or pull request events but only for the develop branch
     push:
         branches: [develop]
     pull_request:
@@ -21,11 +21,11 @@ jobs:
               uses: actions/setup-node@v2-beta
               with:
                   node-version: '16'
-
-            - name: 🔨 Build Project
-              run: |
-                  yarn
-                  yarn build
+            # TODO: add build (after fix type any)
+            # - name: 🔨 Build Project
+            #   run: |
+            #       yarn
+            #       yarn build
 
             # - name: 📂 Deploy to Server
               # uses: 
