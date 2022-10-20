@@ -53,7 +53,7 @@ const Forms: React.FC<IForms> = ({}) => {
                     cursor: 'pointer',
                   }}
                 >
-                  <ReactLink to="/">Altium</ReactLink>
+                  <ReactLink to="/">SensorLogic</ReactLink>
                 </Typography>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
                 <Typography
@@ -63,7 +63,7 @@ const Forms: React.FC<IForms> = ({}) => {
                     color: 'black',
                   }}
                 >
-                  New to Altium?
+                  New to SensorLogic?
                 </Typography>
                 {isSignUp ? (
                   <Link
@@ -113,7 +113,7 @@ const Forms: React.FC<IForms> = ({}) => {
             }}
           >
             <Typography component="h1" variant="h5">
-              {isSignUp ? 'Sign Up' : 'Sign In To Your Altium Account'}
+              {isSignUp ? 'Sign Up' : 'Sign In To Your SensorLogic Account'}
             </Typography>
             {isSignUp ? <SignUp /> : <SignIn />}
           </Box>
@@ -138,7 +138,7 @@ const Forms: React.FC<IForms> = ({}) => {
           >
             {/* TODO: add all logos */}
             {/* <Typography component="h1" variant="h5">
-              Sign In To Your Altium Account
+              Sign In To Your SensorLogic Account
             </Typography> */}
           </Box>
         </Grid>

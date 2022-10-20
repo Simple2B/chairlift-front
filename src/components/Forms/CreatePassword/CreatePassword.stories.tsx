@@ -24,5 +24,5 @@ const Template: ComponentStory<typeof CreatePassword> = (args) => <CreatePasswor
 
 export const CreatePasswordComponent = Template.bind({});
 CreatePasswordComponent.args = {
-  user: {},
+  classes: { error: '' },
 };
