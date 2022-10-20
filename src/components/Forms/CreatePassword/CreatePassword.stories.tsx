@@ -3,11 +3,11 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { store } from '../../../store/index';
 
-import SignUp from './SignUp';
+import CreatePassword from './CreatePassword';
 
 export default {
-  title: 'Forms/Sign Up',
-  component: SignUp,
+  title: 'Forms/CreatePassword',
+  component: CreatePassword,
   parameters: {
     layout: 'fullscreen',
   },
@@ -18,11 +18,11 @@ export default {
       </Provider>
     ),
   ],
-} as ComponentMeta<typeof SignUp>;
+} as ComponentMeta<typeof CreatePassword>;
 
-const Template: ComponentStory<typeof SignUp> = (args) => <SignUp {...args} />;
+const Template: ComponentStory<typeof CreatePassword> = (args) => <CreatePassword {...args} />;
 
-export const SingUp = Template.bind({});
-SingUp.args = {
+export const CreatePasswordComponent = Template.bind({});
+CreatePasswordComponent.args = {
   user: {},
 };

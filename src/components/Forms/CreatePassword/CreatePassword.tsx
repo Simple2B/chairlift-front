@@ -1,30 +1,31 @@
-import React, { useState } from 'react';
-import './Forms.sass';
+import React from 'react';
+import './CreatePassword.sass';
+import logoBG from '../../../img/logoBG.jpeg';
 import { Link as ReactLink } from 'react-router-dom';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Grid from '@mui/material/Grid';
 import CssBaseline from '@mui/material/CssBaseline';
-import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { AppBar, Toolbar } from '@mui/material';
-import logoBG from '../../img/logoBG.jpeg';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import 'react-toastify/dist/ReactToastify.css';
-import SignUp from './SignUp/SignUp';
-import SignIn from './SingIn/SignIn';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface IForms {}
+export interface ICreatePassword {}
 
 const theme = createTheme();
 
 // eslint-disable-next-line no-empty-pattern
-const Forms: React.FC<IForms> = ({}) => {
-  const [isSignUp, setIsSignUp] = useState(false);
-
+const CreatePassword: React.FC<ICreatePassword> = ({}) => {
   const matches = useMediaQuery('(min-width:600px)');
+
+  const handleCreatePassword = () => {
+    console.log('Create Password');
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -56,7 +57,7 @@ const Forms: React.FC<IForms> = ({}) => {
                   <ReactLink to="/">Altium</ReactLink>
                 </Typography>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
-                <Typography
+                {/* <Typography
                   sx={{
                     fontSize: '14px',
                     cursor: 'pointer',
@@ -64,42 +65,7 @@ const Forms: React.FC<IForms> = ({}) => {
                   }}
                 >
                   New to Altium?
-                </Typography>
-                {isSignUp ? (
-                  <Link
-                    sx={{
-                      fontSize: '14px',
-                      textDecoration: 'none',
-                      cursor: 'pointer',
-                      padding: '7px 25px',
-                      marginLeft: '8px',
-                      border: '1px solid rgba(0, 0, 0, 0.3)',
-                      borderRadius: '57px',
-                      color: 'black',
-                    }}
-                    onClick={() => setIsSignUp(false)}
-                    href="#sign_in"
-                  >
-                    Sign In
-                  </Link>
-                ) : (
-                  <Link
-                    sx={{
-                      fontSize: '14px',
-                      textDecoration: 'none',
-                      cursor: 'pointer',
-                      padding: '7px 25px',
-                      marginLeft: '8px',
-                      border: '1px solid rgba(0, 0, 0, 0.3)',
-                      borderRadius: '57px',
-                      color: 'black',
-                    }}
-                    onClick={() => setIsSignUp(true)}
-                    href="#sign_up"
-                  >
-                    Sign Up
-                  </Link>
-                )}
+                </Typography> */}
               </Toolbar>
             </AppBar>
           </Box>
@@ -113,9 +79,40 @@ const Forms: React.FC<IForms> = ({}) => {
             }}
           >
             <Typography component="h1" variant="h5">
-              {isSignUp ? 'Sign Up' : 'Sign In To Your Altium Account'}
+              Set Password
             </Typography>
-            {isSignUp ? <SignUp /> : <SignIn />}
+            <Box component="form" noValidate onSubmit={handleCreatePassword} sx={{ mt: 1 }}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="password"
+                label="password"
+                name="password"
+                autoComplete="password"
+                type="password"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="passwordConfirm"
+                label="Confirm password"
+                name="passwordConfirm"
+                autoComplete="password"
+                type="password"
+                autoFocus
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2, borderRadius: '50px' }}
+              >
+                Submit
+              </Button>
+            </Box>
           </Box>
         </Grid>
         <Grid
@@ -138,8 +135,8 @@ const Forms: React.FC<IForms> = ({}) => {
           >
             {/* TODO: add all logos */}
             {/* <Typography component="h1" variant="h5">
-              Sign In To Your Altium Account
-            </Typography> */}
+          Sign In To Your Altium Account
+        </Typography> */}
           </Box>
         </Grid>
       </Grid>
@@ -147,4 +144,4 @@ const Forms: React.FC<IForms> = ({}) => {
   );
 };
 
-export default Forms;
+export default CreatePassword;

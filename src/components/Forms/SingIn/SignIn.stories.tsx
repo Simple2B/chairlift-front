@@ -6,7 +6,7 @@ import { store } from '../../../store/index';
 import SignIn from './SignIn';
 
 export default {
-  title: 'Forms/SingIn',
+  title: 'Forms/Sing In',
   component: SignIn,
   parameters: {
     // More on Story layout: https://storybook.js.org/docs/react/configure/story-layout

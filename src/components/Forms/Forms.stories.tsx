@@ -22,7 +22,7 @@ export default {
 
 const Template: ComponentStory<typeof Forms> = (args) => <Forms {...args} />;
 
-export const SingIn = Template.bind({});
-SingIn.args = {
+export const FormsComponent = Template.bind({});
+FormsComponent.args = {
   user: {},
 };

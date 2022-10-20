@@ -23,10 +23,6 @@ const SignIn: React.FC<ISignIn> = ({}) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  // const state = useSelector((state: any) => state.auth);
-
-  // const [isGoogleAuthSuccess, setIsGoogleAuthSuccess] = useState<boolean>(false);
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
