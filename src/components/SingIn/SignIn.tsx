@@ -1,5 +1,5 @@
-import * as React from 'react';
-import './SingIn.sass';
+import React from 'react';
+import './SignIn.sass';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -14,28 +14,28 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AppBar, Toolbar } from '@mui/material';
 import logoBG from '../../img/logoBG.jpeg';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { GoogleLogin } from 'react-google-login';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { authenticationGoogle } from '../../store/slices/Authentication/AuthenticationGoogleSlices';
+import { useAppDispatch } from '../../store';
 
-// function Copyright(props: any) {
-//   return (
-//     <Typography
-//       variant="body2"
-//       color="text.secondary"
-//       align="center"
-//       {...props}
-//     >
-//       {'Copyright © '}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{' '}
-//       {new Date().getFullYear()}
-//       {'.'}
-//     </Typography>
-//   );
-// }
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface ISignIn {}
 
 const theme = createTheme();
 
-const SignIn = () => {
+const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
+// eslint-disable-next-line no-empty-pattern
+const SignIn: React.FC<ISignIn> = ({}) => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  // const state = useSelector((state: any) => state.auth);
+
+  // const [isGoogleAuthSuccess, setIsGoogleAuthSuccess] = useState<boolean>(false);
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -43,9 +43,48 @@ const SignIn = () => {
       email: data.get('email'),
       password: data.get('password'),
     });
+    // const email = data.get('email')?.toString();
+    // const password = data.get('password')?.toString();
+    // authApi.signin(email ?? '', password ?? '');
   };
 
   const matches = useMediaQuery('(min-width:600px)');
+
+  const notify = () =>
+    toast('LOGIN SUCCESS!', {
+      position: 'top-left',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+
+  const onSignInSuccess = (res: any) => {
+    console.log('LOGIN SUCCESS! Current user', res.profileObj);
+    // setIsGoogleAuthSuccess(true);
+    // signIn
+    const data = {
+      email: res.profileObj.email,
+      username: res.profileObj.name,
+      google_openid_key: res.profileObj.googleId,
+      picture: res.profileObj.imageUrl,
+    };
+    // authApi.googleSignin(data);
+    dispatch(authenticationGoogle(data));
+    setTimeout(() => {
+      navigate('/');
+    }, 3500);
+    notify();
+    // setIsGoogleAuthSuccess(false);
+  };
+
+  const onFailure = (res: any) => {
+    console.log('LOGIN FAILED! res', res);
+    // setIsGoogleAuthSuccess(false);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -54,7 +93,6 @@ const SignIn = () => {
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box sx={{ flexGrow: 1 }}>
             <AppBar
-              //   position="relative"
               position="static"
               color="transparent"
               classes={{}}
@@ -70,12 +108,7 @@ const SignIn = () => {
                   sx={{
                     fontSize: '18px',
                     fontWeight: '900',
-                    fontFamily: [
-                      'Roboto',
-                      'Helvetica Neue',
-                      'Arial',
-                      'sans-serif',
-                    ],
+                    fontFamily: ['Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
                     fontStyle: 'italic',
                     cursor: 'pointer',
                   }}
@@ -121,12 +154,7 @@ const SignIn = () => {
             <Typography component="h1" variant="h5">
               Sign In To Your Altium Account
             </Typography>
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
-              sx={{ mt: 1 }}
-            >
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
@@ -167,8 +195,29 @@ const SignIn = () => {
               </div>
 
               <div className="socialContainer">
+                <div>
+                  <ToastContainer
+                    position="top-left"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                  />
+                </div>
                 <Link href="#" className="social">
-                  <GoogleIcon />
+                  <GoogleLogin
+                    clientId={GOOGLE_CLIENT_ID ?? ''}
+                    render={(renderProps) => <GoogleIcon onClick={renderProps.onClick} />}
+                    onSuccess={onSignInSuccess}
+                    onFailure={onFailure}
+                    cookiePolicy={'single_host_origin'}
+                    isSignedIn={true}
+                  />
                 </Link>
                 <Link href="#" className="social">
                   <AppleIcon />
@@ -177,7 +226,6 @@ const SignIn = () => {
             </Box>
           </Box>
         </Grid>
-
         <Grid
           item
           xs={false}
