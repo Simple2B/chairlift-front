@@ -9,6 +9,7 @@ import { Routes, Route } from 'react-router-dom';
 import SignUp from './components/Forms/SignUp/SignUp';
 import Forms from './components/Forms/Forms';
 import CreatePassword from './components/Forms/CreatePassword/CreatePassword';
+import Profile from './components/Profile/Profile';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IApp {}
@@ -62,6 +63,7 @@ const App: React.FC<IApp> = ({}) => {
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Forms />} />
         <Route path="/reset_password/:uuid" element={<CreatePassword />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </>
   );

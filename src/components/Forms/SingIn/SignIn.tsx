@@ -110,7 +110,7 @@ const SignIn: React.FC<ISignIn> = ({}) => {
     // authApi.googleSignin(data);
     dispatch(authenticationGoogle(data));
     setTimeout(() => {
-      navigate('/');
+      // navigate('/');
     }, 3500);
     notify();
     // setIsGoogleAuthSuccess(false);

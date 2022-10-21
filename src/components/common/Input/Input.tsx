@@ -36,7 +36,6 @@ const Input: React.FC<IInput> = ({
       value={value}
       onChange={onChange}
       helperText={helperText}
-      // className={classes.field}
       required
       fullWidth
       autoFocus
