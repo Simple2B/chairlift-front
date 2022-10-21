@@ -13,19 +13,14 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import PasswordInput from '../../common/PasswordInput/PasswordInput';
-// import { withStyles } from '@material-ui/core/styles';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ICreatePassword {
-  classes: {
-    error: string;
-  };
-}
+export interface ICreatePassword {}
 
 const theme = createTheme();
 
 // eslint-disable-next-line no-empty-pattern
-const CreatePassword: React.FC<ICreatePassword> = ({ classes }) => {
+const CreatePassword: React.FC<ICreatePassword> = ({}) => {
   const matches = useMediaQuery('(min-width:600px)');
 
   const [password, setPassword] = useState<string>('');

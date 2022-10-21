@@ -61,16 +61,7 @@ const App: React.FC<IApp> = ({}) => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Forms />} />
-        <Route
-          path="/reset_password/:uuid"
-          element={
-            <CreatePassword
-              classes={{
-                error: '',
-              }}
-            />
-          }
-        />
+        <Route path="/reset_password/:uuid" element={<CreatePassword />} />
       </Routes>
     </>
   );
