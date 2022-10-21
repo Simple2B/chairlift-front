@@ -1,24 +1,14 @@
-import { IGoogleUser } from '../types/user';
 import { instance } from './_axiosInstance';
 
 export const clientApi = {
-  //   : async (): Promise<IGoogleUser> => {
-  //     try {
-  //       const response = await instance().post('/user/create_user', data);
-  //       const res = response.data;
-  //       return res;
-  //     } catch (error: any) {
-  //       console.log(`POST createUserProvider: error message => ${error.message}`);
-  //       throw error;
-  //     }
+  signup: async (): Promise<any> => {
+    try {
+      const response = await instance().post('/sign_up');
+      console.log('POST [/sign_up] successfully');
+      return response.data;
+    } catch (error: any) {
+      console.log(`POST [/sign_up] error message: ${error.message}`);
+      throw error;
+    }
+  },
 };
-//   getUser: async (email: string): Promise<> => {
-//     // try {
-//     //   const response = await instance().get(`/${email}`);
-//     //   const res = response.data;
-//     //   return res;
-//     // } catch (error: any) {
-//     //   console.log(`POST getUser: error message => ${error.message}`);
-//     //   throw error;
-//     // }
-//   },

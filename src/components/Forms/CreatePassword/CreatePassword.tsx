@@ -12,19 +12,7 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
-import {
-  Visibility,
-  VisibilityOff,
-  Error as ErrorIcon,
-  Close as CloseIcon,
-} from '@mui/icons-material';
-import SnackbarContent from '@mui/material/SnackbarContent';
-import Snackbar from '@mui/material/Snackbar';
+import PasswordInput from '../../common/PasswordInput/PasswordInput';
 // import { withStyles } from '@material-ui/core/styles';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -41,42 +29,63 @@ const CreatePassword: React.FC<ICreatePassword> = ({ classes }) => {
   const matches = useMediaQuery('(min-width:600px)');
 
   const [password, setPassword] = useState<string>('');
+  const [isErrorPassword, setIsErrorPassword] = useState<boolean>(false);
+  const [errorPasswordMessage, setErrorPasswordMessage] = useState<string>('');
+
   const [passwordConfirm, setPasswordConfirm] = useState<string>('');
+  const [isErrorPasswordConfirm, setIsErrorPasswordConfirm] = useState<boolean>(false);
+  const [errorPasswordConfirmMessage, setErrorPasswordConfirmMessage] = useState<string>('');
+
   const [hidePassword, setHidePassword] = useState<boolean>(true);
   const [hidePasswordConfirm, setHidePasswordConfirm] = useState<boolean>(true);
 
-  const [error, setError] = useState<string | null>(null);
-  const [errorOpen, setErrorOpen] = useState<boolean>(false);
+  // TODO: second variant of message error
+  // const [error, setError] = useState<string | null>(null);
+  // const [errorOpen, setErrorOpen] = useState<boolean>(false);
 
-  const errorClose = () => {
-    setErrorOpen(false);
-  };
+  // const errorClose = () => {
+  //   setErrorOpen(false);
+  // };
 
   const handleChange = (
+    // eslint-disable-next-line no-unused-vars
     setPasswordState: (p: string) => void,
     e: { target: { value: string } },
   ) => {
     setPasswordState(e.target.value);
   };
 
+  // eslint-disable-next-line no-unused-vars
   const showPassword = (setPasswordHideState: (arg0: (prevState: boolean) => boolean) => void) => {
     setPasswordHideState((prevState: boolean) => !prevState);
   };
 
   const submitRegistration = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (password === passwordConfirm) {
-      setErrorOpen(true);
-      setError("Passwords don't match");
+    setIsErrorPassword(false);
+    setErrorPasswordMessage('');
+    setIsErrorPasswordConfirm(false);
+    setErrorPasswordConfirmMessage('');
+    if (password === '') {
+      setIsErrorPassword(true);
+      setErrorPasswordMessage('Password cannot be empty');
     }
-    const newUserCredentials = {
-      password,
-      passwordConfirm,
-    };
-    console.log('newUserCredentials', newUserCredentials);
-    // TODO: verify success response from backend
-    setPassword('');
-    setPasswordConfirm('');
+    if (passwordConfirm === '') {
+      setIsErrorPasswordConfirm(true);
+      setErrorPasswordConfirmMessage('Password cannot be empty');
+    }
+    if (password !== passwordConfirm) {
+      setIsErrorPasswordConfirm(true);
+      setErrorPasswordConfirmMessage("Passwords don't match");
+    }
+    if (password === passwordConfirm) {
+      const newUserCredentials = {
+        password,
+        passwordConfirm,
+      };
+      console.log('newUserCredentials', newUserCredentials);
+      // TODO: verify success response from backend
+    }
   };
 
   return (
@@ -134,50 +143,28 @@ const CreatePassword: React.FC<ICreatePassword> = ({ classes }) => {
             <Typography component="h1" variant="h5">
               Set Password
             </Typography>
-            <FormControl sx={{ m: 1, width: '100%' }} variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-password"
-                type={!hidePassword ? 'text' : 'password'}
-                value={password}
-                onChange={(e) => handleChange(setPassword, e)}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={() => showPassword(setHidePassword)}
-                      // onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {hidePassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="Password"
-              />
-            </FormControl>
-            <FormControl sx={{ m: 1, width: '100%' }} variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">Password confirm</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-password"
-                type={!hidePasswordConfirm ? 'text' : 'password'}
-                value={passwordConfirm}
-                onChange={(e) => handleChange(setPasswordConfirm, e)}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={() => showPassword(setHidePasswordConfirm)}
-                      // onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {hidePasswordConfirm ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="Password confirm"
-              />
-            </FormControl>
+            <PasswordInput
+              label="Password"
+              value={password}
+              setPassword={setPassword}
+              hidePassword={hidePassword}
+              handleChange={handleChange}
+              showPassword={showPassword}
+              setHidePassword={setHidePassword}
+              isError={isErrorPassword}
+              helperText={errorPasswordMessage}
+            />
+            <PasswordInput
+              label="Password confirm"
+              value={passwordConfirm}
+              setPassword={setPasswordConfirm}
+              hidePassword={hidePasswordConfirm}
+              handleChange={handleChange}
+              showPassword={showPassword}
+              setHidePassword={setHidePasswordConfirm}
+              isError={isErrorPasswordConfirm}
+              helperText={errorPasswordConfirmMessage}
+            />
             <Button
               type="submit"
               fullWidth
@@ -187,7 +174,8 @@ const CreatePassword: React.FC<ICreatePassword> = ({ classes }) => {
             >
               Submit
             </Button>
-            {error ? (
+            {/* TODO: second variant of message error */}
+            {/* {error ? (
               <Snackbar
                 // variant="error"
                 key={error}
@@ -216,7 +204,7 @@ const CreatePassword: React.FC<ICreatePassword> = ({ classes }) => {
                   ]}
                 />
               </Snackbar>
-            ) : null}
+            ) : null} */}
           </Box>
         </Grid>
         <Grid

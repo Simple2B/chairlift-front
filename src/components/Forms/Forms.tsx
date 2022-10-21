@@ -23,9 +23,7 @@ const theme = createTheme();
 // eslint-disable-next-line no-empty-pattern
 const Forms: React.FC<IForms> = ({}) => {
   const [isSignUp, setIsSignUp] = useState(false);
-
   const matches = useMediaQuery('(min-width:600px)');
-
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
@@ -43,7 +41,7 @@ const Forms: React.FC<IForms> = ({}) => {
               }}
             >
               {/* TODO: it is must remove , it's only for test */}
-              {/* <ReactLink to={`/reset_password/${'123456789'}`}>Registration</ReactLink> */}
+              <ReactLink to={`/reset_password/${'123456789'}`}>Registration</ReactLink>
               <Toolbar>
                 <Typography
                   color="black"

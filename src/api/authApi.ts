@@ -15,7 +15,7 @@ const formatRequestBody = (email: string, password: string) => {
 export const authApi = {
   signin: async (email: string, password: string): Promise<any> => {
     try {
-      const response = await authInstance.post('/login', formatRequestBody(email, password));
+      const response = await authInstance.post('/sign_in', formatRequestBody(email, password));
       console.log('POST [/sign_in] response received successfully');
       return response.data;
     } catch (error: any) {

@@ -1,38 +1,94 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './SignUp.sass';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Input from '../../common/Input/Input';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ISignUp {}
 
+const re = /\S+@\S+\.\S+/;
+
 // eslint-disable-next-line no-empty-pattern
 const SignUp: React.FC<ISignUp> = ({}) => {
-  const handleSignUp = () => {
-    console.log(' === handleSignUp ===');
+  const [name, setName] = useState<string>('');
+  const [errorNameMessage, setErrorNameMessage] = useState<string>('');
+  const [isErrorName, setIsErrorName] = useState<boolean>(false);
+
+  const [email, setEmail] = useState<string>('');
+  const [errorEmailMessage, setErrorEmailMessage] = useState<string>('');
+  const [isErrorEmail, setIsErrorEmail] = useState<boolean>(false);
+
+  const handleSignUp = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    setIsErrorEmail(false);
+    setIsErrorName(false);
+    setErrorEmailMessage('');
+    setErrorNameMessage('');
+    if (email === '') {
+      setIsErrorEmail(true);
+      setErrorEmailMessage('Email cannot be empty');
+    }
+
+    if (re.test(email.toLowerCase())) {
+      setIsErrorEmail(false);
+      setErrorEmailMessage('');
+    } else {
+      setIsErrorEmail(true);
+      setErrorEmailMessage('Email is not valid');
+    }
+
+    if (name === '') {
+      setIsErrorName(true);
+      setErrorNameMessage('Name cannot be empty');
+    }
+
+    if (email && name) {
+      console.log({
+        email: email,
+        name: name,
+      });
+    }
   };
+
   return (
     <Box component="form" noValidate onSubmit={handleSignUp} sx={{ mt: 1 }}>
-      <TextField
-        margin="normal"
-        required
-        fullWidth
-        id="name"
-        label="User Name"
-        name="name"
-        autoComplete="name"
-        autoFocus
+      <Input
+        helperText={errorNameMessage}
+        isError={isErrorName}
+        name={'name'}
+        label={'User name'}
+        value={name}
+        onChange={(e) => {
+          setName(e.target.value);
+          if (e.target.value !== '') {
+            setIsErrorName(false);
+            setErrorNameMessage('');
+          } else {
+            setIsErrorName(true);
+            setErrorNameMessage('Name cannot be empty');
+          }
+        }}
+        type="text"
       />
-      <TextField
-        margin="normal"
-        required
-        fullWidth
-        id="email"
-        label="Email Address"
-        name="email"
-        autoComplete="email"
-        autoFocus
+      <Input
+        helperText={errorEmailMessage}
+        isError={isErrorEmail}
+        name={'email'}
+        label={'Email'}
+        value={email}
+        onChange={(e) => {
+          setEmail(e.target.value);
+          if (e.target.value !== '') {
+            setIsErrorEmail(false);
+            setErrorEmailMessage('');
+          } else {
+            setIsErrorEmail(true);
+            setErrorEmailMessage('Email cannot be empty');
+          }
+        }}
+        sx={{ mt: 2 }}
+        type="email"
       />
       <Button
         type="submit"
