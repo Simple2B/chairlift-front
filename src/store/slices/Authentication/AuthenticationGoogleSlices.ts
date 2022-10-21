@@ -7,7 +7,12 @@ const userToken = localStorage.getItem('userToken') ? localStorage.getItem('user
 
 const initialState: IInitialState = {
   loading: false,
-  userInfo: {},
+  userInfo: {
+    email: '',
+    username: '',
+    google_openid_key: '',
+    picture: '',
+  },
   userToken,
   error: null,
   success: false,
@@ -57,7 +62,12 @@ export const authGoogleSlice = createSlice({
     [logout.fulfilled.toString()]: (state: IInitialState, action) => {
       state.loading = false;
       state.success = false;
-      state.userInfo = {};
+      state.userInfo = {
+        email: '',
+        username: '',
+        google_openid_key: '',
+        picture: '',
+      };
       state.userToken = action.payload;
     },
     [logout.rejected.toString()]: (state: IInitialState, action) => {

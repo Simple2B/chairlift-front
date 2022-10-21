@@ -16,7 +16,7 @@ export interface IRequestGoogleUser {
 
 export interface IInitialState {
   loading: boolean;
-  userInfo: any;
+  userInfo: IRequestGoogleUser;
   userToken: string | null;
   error: string | null;
   success: boolean;

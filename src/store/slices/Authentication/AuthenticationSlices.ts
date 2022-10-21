@@ -7,7 +7,12 @@ const userToken = localStorage.getItem('userToken') ? localStorage.getItem('user
 
 const initialState: IInitialState = {
   loading: false,
-  userInfo: {},
+  userInfo: {
+    email: '',
+    username: '',
+    google_openid_key: '',
+    picture: '',
+  },
   userToken,
   error: null,
   success: false,
@@ -21,7 +26,8 @@ export const authentication = createAsyncThunk(
   async (
     { email, password }: { email: string; password: string },
     { rejectWithValue },
-  ): Promise<void | any> => {
+  ): // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Promise<void | any> => {
     try {
       // make request to backend
       const res = await authApi.signin(email ?? '', password ?? '');
@@ -29,6 +35,7 @@ export const authentication = createAsyncThunk(
       console.log('authentication: res ', res);
 
       return res.data;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       // return custom error message from API if any
       if (error.response && error.response.data.message) {

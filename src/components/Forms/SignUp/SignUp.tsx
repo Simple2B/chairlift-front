@@ -3,6 +3,7 @@ import './SignUp.sass';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Input from '../../common/Input/Input';
+import { clientApi } from '../../../api/userInstance';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ISignUp {}
@@ -48,6 +49,7 @@ const SignUp: React.FC<ISignUp> = ({}) => {
         email: email,
         name: name,
       });
+      clientApi.signup(email, name);
     }
   };
 
