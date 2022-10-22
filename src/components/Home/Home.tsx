@@ -106,7 +106,11 @@ const Home: React.FC<IHome> = () => {
         title="login"
       >
         {' '}
-        {success && <Avatar alt={'avatar'} src={user.picture} sx={{ marginRight: '7px' }} />}
+        {success && (
+          <ReactLink to="/profile">
+            <Avatar alt={'avatar'} src={user.picture} sx={{ marginRight: '7px' }} />
+          </ReactLink>
+        )}
         {userToken ? (
           <GoogleLogout
             clientId={GOOGLE_CLIENT_ID ?? ''}

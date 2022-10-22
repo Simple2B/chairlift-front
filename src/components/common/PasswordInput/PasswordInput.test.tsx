@@ -1,14 +1,15 @@
 import 'jest';
 import PasswordInput from './PasswordInput';
 import { render } from '@testing-library/react';
-import { SetStateAction, Dispatch } from 'react';
+import { SetStateAction, Dispatch, useState } from 'react';
 
 // eslint-disable-next-line no-undef
 test('should render', () => {
+  const [value, setValue] = useState();
   render(
     <PasswordInput
       label="Password"
-      value={''}
+      value={'Password'}
       setPassword={function (value: SetStateAction<string>): void {
         throw new Error('Function not implemented.');
       }}

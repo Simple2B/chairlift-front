@@ -13,5 +13,5 @@ export default {
 
 const Template: ComponentStory<typeof Input> = (args) => <Input {...args} />;
 
-export const LoaderComponent = Template.bind({});
-LoaderComponent.args = {};
+export const InputComponent = Template.bind({});
+InputComponent.args = {};

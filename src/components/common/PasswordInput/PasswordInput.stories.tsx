@@ -13,5 +13,5 @@ export default {
 
 const Template: ComponentStory<typeof PasswordInput> = (args) => <PasswordInput {...args} />;
 
-export const LoaderComponent = Template.bind({});
-LoaderComponent.args = {};
+export const PasswordInputComponent = Template.bind({});
+PasswordInputComponent.args = {};
