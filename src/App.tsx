@@ -3,13 +3,13 @@ import './App.sass';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Loader from './components/common/Loader/Loader';
-import SignIn from './components/Forms/SingIn/SignIn';
 import Home from './components/Home/Home';
 import { Routes, Route } from 'react-router-dom';
-import SignUp from './components/Forms/SignUp/SignUp';
 import Forms from './components/Forms/Forms';
 import CreatePassword from './components/Forms/CreatePassword/CreatePassword';
 import Profile from './components/Profile/Profile';
+import { ColorModeContext, useMode } from './theme';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IApp {}
@@ -17,6 +17,8 @@ export interface IApp {}
 // eslint-disable-next-line no-empty-pattern
 const App: React.FC<IApp> = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [theme, colorMode] = useMode();
+
   useEffect(() => {
     const onPageLoad = () => {
       setTimeout(() => {
@@ -51,7 +53,7 @@ const App: React.FC<IApp> = ({}) => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              backgroundColor: '#141b2d',
               width: '100vw',
             }}
           >
@@ -59,12 +61,17 @@ const App: React.FC<IApp> = ({}) => {
           </Box>
         </Grid>
       )}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<Forms />} />
-        <Route path="/reset_password/:uuid" element={<CreatePassword />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/auth" element={<Forms />} />
+            <Route path="/reset_password/:uuid" element={<CreatePassword />} />
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
+        </ThemeProvider>
+      </ColorModeContext.Provider>
     </>
   );
 };
