@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './App.sass';
+import { Routes, Route } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Loader from './components/common/Loader/Loader';
 import Home from './components/Home/Home';
-import { Routes, Route } from 'react-router-dom';
 import Forms from './components/Forms/Forms';
 import CreatePassword from './components/Forms/CreatePassword/CreatePassword';
 import Profile from './components/Profile/Profile';
-import { ColorModeContext, useMode } from './theme';
-import { CssBaseline, ThemeProvider } from '@mui/material';
+import Dashboard from './components/Profile/dashboard';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IApp {}
@@ -17,7 +16,6 @@ export interface IApp {}
 // eslint-disable-next-line no-empty-pattern
 const App: React.FC<IApp> = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [theme, colorMode] = useMode();
 
   useEffect(() => {
     const onPageLoad = () => {
@@ -61,17 +59,25 @@ const App: React.FC<IApp> = ({}) => {
           </Box>
         </Grid>
       )}
-      <ColorModeContext.Provider value={colorMode}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/auth" element={<Forms />} />
-            <Route path="/reset_password/:uuid" element={<CreatePassword />} />
-            <Route path="/profile" element={<Profile />} />
-          </Routes>
-        </ThemeProvider>
-      </ColorModeContext.Provider>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/auth" element={<Forms />} />
+        <Route path="/reset_password/:uuid" element={<CreatePassword />} />
+
+        <Route path="/profile" element={<Profile />} />
+
+        {/* <Route path="/profile" element={<Dashboard />} /> */}
+        {/* <Route path="/profile/team" element={<Team />} /> */}
+        {/* <Route path="/profile/contacts" element={<Contacts />} /> */}
+        {/* <Route path="/profile/invoices" element={<Invoices />} /> */}
+        {/* <Route path="/profile/form" element={<Form />} /> */}
+        {/* <Route path="/profile/bar" element={<Bar />} /> */}
+        {/* <Route path="/profile/pie" element={<Pie />} /> */}
+        {/* <Route path="/profile/line" element={<Line />} /> */}
+        {/* <Route path="/profile/faq" element={<FAQ />} /> */}
+        {/* <Route path="/profile/calendar" element={<Calendar />} /> */}
+        {/* <Route path="/profile/geography" element={<Geography />} /> */}
+      </Routes>
     </>
   );
 };

@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { Box, IconButton, useTheme } from '@mui/material';
-import { useContext } from 'react';
-import { ColorModeContext, tokens } from '../../../theme';
+import { tokens } from '../../../theme';
 import InputBase from '@mui/material/InputBase';
-import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
-import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
@@ -15,7 +12,7 @@ export interface ITopBar {}
 
 // eslint-disable-next-line no-empty-pattern
 const TopBar: React.FC<ITopBar> = ({}) => {
-  const colorMode = useContext(ColorModeContext);
+  // const colorMode = useContext(ColorModeContext);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 

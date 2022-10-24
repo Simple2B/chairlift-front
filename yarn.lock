@@ -5582,7 +5582,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.2.6:
+classnames@^2.2.6, classnames@^2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.2.tgz#351d813bf0137fcc6a76a16b88208d2560a0d924"
   integrity sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==
@@ -12572,6 +12572,15 @@ react-merge-refs@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-merge-refs/-/react-merge-refs-1.1.0.tgz#73d88b892c6c68cbb7a66e0800faa374f4c38b06"
   integrity sha512-alTKsjEL0dKH/ru1Iyn7vliS2QRcBp9zZPGoWxUOvRGWPUYgjo+V01is7p04It6KhgrzhJGnIj9GgX8W4bZoCQ==
+
+react-pro-sidebar@^1.0.0-alpha.6:
+  version "1.0.0-alpha.6"
+  resolved "https://registry.yarnpkg.com/react-pro-sidebar/-/react-pro-sidebar-1.0.0-alpha.6.tgz#3aefcac2dbe541a9ca59eb4ef1c8bbf3772cdfdb"
+  integrity sha512-uXK3hZcLD4zxXMkuugw1JG5raRjW6FTUtxi0kdwE4i8EARc95sJpyYHQeITD5gnlbuykTWzI2I/OywFwmiD5Qg==
+  dependencies:
+    "@popperjs/core" "^2.11.6"
+    classnames "^2.3.2"
+    styled-components "^5.3.6"
 
 react-redux@^8.0.4:
   version "8.0.4"

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Forms.sass';
-import { Link as ReactLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
@@ -40,8 +40,6 @@ const Forms: React.FC<IForms> = ({}) => {
               flexDirection: 'space-between',
             }}
           >
-            {/* TODO: it is must remove , it's only for test */}
-            <ReactLink to={`/reset_password/${'123456789'}`}>Registration</ReactLink>
             <Toolbar>
               <Typography
                 color="black"
@@ -53,7 +51,7 @@ const Forms: React.FC<IForms> = ({}) => {
                   cursor: 'pointer',
                 }}
               >
-                <ReactLink to="/">SensorLogic</ReactLink>
+                <NavLink to="/">SensorLogic</NavLink>
               </Typography>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
               <Typography

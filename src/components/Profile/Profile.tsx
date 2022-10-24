@@ -4,6 +4,10 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import Error from '../common/Error/Error';
 import TopBar from './global/TopBar';
+import { ColorModeContext, useMode } from '../../theme';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import SideBar from './global/SideBar';
+import Dashboard from './dashboard';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IProfile {}
@@ -12,12 +16,23 @@ export interface IProfile {}
 const Profile: React.FC<IProfile> = ({}) => {
   // const user = useSelector((state: RootState) => state.user.userInfo);
   const success = useSelector((state: RootState) => state.user.success);
+  const [theme, colorMode] = useMode();
+
   return (
     <>
       {success ? (
-        <main className="content">
-          <TopBar />
-        </main>
+        <ColorModeContext.Provider value={colorMode}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <div className="containerProfile">
+              <SideBar />
+              <main className="content">
+                <TopBar />
+                <Dashboard />
+              </main>
+            </div>
+          </ThemeProvider>
+        </ColorModeContext.Provider>
       ) : (
         <Error />
       )}

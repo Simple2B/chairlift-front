@@ -1,4 +1,4 @@
-import { IRequestGoogleUser } from '../types/user';
+import { IRequestGoogleUser, IResponseUserData } from '../types/user';
 import { authInstance, instance } from './_axiosInstance';
 
 const formatRequestBody = (email: string, password: string) => {
@@ -13,22 +13,20 @@ const formatRequestBody = (email: string, password: string) => {
 };
 
 export const authApi = {
-  signin: async (email: string, password: string): Promise<any> => {
+  signin: async (email: string, password: string): Promise<IResponseUserData> => {
     try {
-      const response = await authInstance.post('/sign_in', formatRequestBody(email, password));
+      const response = await authInstance.post('/login', formatRequestBody(email, password));
       console.log('POST [/sign_in] response received successfully');
       return response.data;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      console.log(`POST [/auth/sign_in] error message: ${error.message}`);
+      console.log(`POST [/sign_in] error message: ${error.message}`);
       throw error;
     }
   },
 
   // google_login
-  googleSignin: async (
-    user_data: IRequestGoogleUser,
-  ): Promise<{ access_token: string; token_type: string }> => {
+  googleSignin: async (user_data: IRequestGoogleUser): Promise<IResponseUserData> => {
     try {
       const response = await instance().post('/google_login', user_data);
       console.log('POST googleSignin successfully', response.data);

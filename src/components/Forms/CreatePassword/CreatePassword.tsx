@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './CreatePassword.sass';
 import logoBG from '../../../img/logoBG.jpeg';
-import { Link as ReactLink } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Grid from '@mui/material/Grid';
@@ -13,6 +13,10 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import PasswordInput from '../../common/PasswordInput/PasswordInput';
+import { clientApi } from '../../../api/userInstance';
+import { instance } from '../../../api/_axiosInstance';
+import Modal from '@mui/material/Modal';
+import Loader from '../../common/Loader/Loader';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ICreatePassword {}
@@ -22,6 +26,7 @@ export interface ICreatePassword {}
 // eslint-disable-next-line no-empty-pattern
 const CreatePassword: React.FC<ICreatePassword> = ({}) => {
   const matches = useMediaQuery('(min-width:600px)');
+  const params = useLocation();
 
   const [password, setPassword] = useState<string>('');
   const [isErrorPassword, setIsErrorPassword] = useState<boolean>(false);
@@ -34,6 +39,12 @@ const CreatePassword: React.FC<ICreatePassword> = ({}) => {
   const [hidePassword, setHidePassword] = useState<boolean>(true);
   const [hidePasswordConfirm, setHidePasswordConfirm] = useState<boolean>(true);
 
+  const [isLoad, setIsLoad] = useState<boolean>(false);
+  const [isSuccess, setSuccess] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const navigate = useNavigate();
+
   // TODO: second variant of message error
   // const [error, setError] = useState<string | null>(null);
   // const [errorOpen, setErrorOpen] = useState<boolean>(false);
@@ -41,6 +52,12 @@ const CreatePassword: React.FC<ICreatePassword> = ({}) => {
   // const errorClose = () => {
   //   setErrorOpen(false);
   // };
+
+  const [userUUID, setUserUUID] = useState<string | null>(null);
+
+  useEffect(() => {
+    setUserUUID(params.pathname.split('/')[2]);
+  }, [params]);
 
   const handleChange = (
     // eslint-disable-next-line no-unused-vars
@@ -57,6 +74,8 @@ const CreatePassword: React.FC<ICreatePassword> = ({}) => {
 
   const submitRegistration = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    setIsLoad(true);
+    setSuccess(false);
     setIsErrorPassword(false);
     setErrorPasswordMessage('');
     setIsErrorPasswordConfirm(false);
@@ -74,18 +93,150 @@ const CreatePassword: React.FC<ICreatePassword> = ({}) => {
       setErrorPasswordConfirmMessage("Passwords don't match");
     }
     if (password === passwordConfirm) {
-      const newUserCredentials = {
-        password,
-        passwordConfirm,
-      };
-      console.log('newUserCredentials', newUserCredentials);
-      // TODO: verify success response from backend
+      if (userUUID) {
+        const resetPasswordData = {
+          verification_token: userUUID,
+          password: password,
+        };
+        const resetPassword = async () => {
+          try {
+            const response = await instance().post('/user/reset_password', resetPasswordData);
+            setIsLoad(false);
+            setSuccess(true);
+            console.log('POST [/reset_password] successfully', response.data);
+            return response.data;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          } catch (error: any) {
+            setIsLoad(false);
+            setSuccess(false);
+            console.log(`POST [/reset_password] error message: ${error.message}`);
+            setError('Something went wrong... Please sign up!');
+          }
+        };
+        resetPassword();
+      }
     }
   };
 
+  useEffect(() => {
+    if (isSuccess) {
+      setTimeout(() => {
+        navigate('/auth');
+      }, 3000);
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        setError(null);
+        navigate('/auth#sign_in');
+      }, 1500);
+    }
+  }, [error]);
+
   return (
-    // <ThemeProvider theme={theme}>
-    <Grid container component="main" sx={{ height: '100vh' }}>
+    <Grid container component="main" sx={{ height: '100vh', position: 'relative' }}>
+      {error && !isSuccess && (
+        <Modal
+          open={error !== null ? true : false}
+          onClose={() => {
+            setError(null);
+            navigate('/auth#sign_in');
+          }}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          sx={{ margin: '15% auto' }}
+        >
+          <Box
+            sx={{
+              width: '75%',
+              margin: '0 auto',
+              padding: '55px 30px',
+              backgroundColor: '#151632',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: '20px',
+              zIndex: '100',
+            }}
+          >
+            <Typography
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+              sx={{ color: '#f8dcdb', textAlign: 'center' }}
+            >
+              {`${error}`}
+            </Typography>
+          </Box>
+        </Modal>
+      )}
+      {isLoad && (
+        <Modal
+          open={isLoad}
+          onClose={() => console.log('Load false')}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          sx={{
+            margin: '15% auto',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Box
+            sx={{
+              height: '100vh',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: '20px',
+              zIndex: '100',
+            }}
+          >
+            <Loader />
+          </Box>
+        </Modal>
+      )}
+      {isSuccess && (
+        <Modal
+          open={isSuccess}
+          onClose={() => {
+            setSuccess(false);
+            navigate('/');
+          }}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          sx={{ margin: '15% auto' }}
+        >
+          <Box
+            sx={{
+              width: '75%',
+              margin: '0 auto',
+              padding: '55px 30px',
+              backgroundColor: '#151632',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: '20px',
+              zIndex: '100',
+            }}
+          >
+            <Typography
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+              sx={{ color: '#f8dcdb', textAlign: 'center' }}
+            >
+              Password saved successfully
+            </Typography>
+          </Box>
+        </Modal>
+      )}
       <CssBaseline />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <Box sx={{ flexGrow: 1 }}>
@@ -110,7 +261,7 @@ const CreatePassword: React.FC<ICreatePassword> = ({}) => {
                   cursor: 'pointer',
                 }}
               >
-                <ReactLink to="/">SensorLogic</ReactLink>
+                <NavLink to="/">SensorLogic</NavLink>
               </Typography>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
               {/* TODO: link ? */}
@@ -222,7 +373,6 @@ const CreatePassword: React.FC<ICreatePassword> = ({}) => {
         ></Box>
       </Grid>
     </Grid>
-    // </ThemeProvider>
   );
 };
 
