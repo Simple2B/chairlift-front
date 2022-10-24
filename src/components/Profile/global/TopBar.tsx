@@ -36,9 +36,10 @@ const TopBar: React.FC<ITopBar> = ({}) => {
       </Box>
       {/* ICONS */}
       <Box display="flex">
-        <IconButton onClick={colorMode.toggleColorMode}>
+        {/* TODO: add theme color */}
+        {/* <IconButton onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === 'dark' ? <DarkModeOutlinedIcon /> : <LightModeOutlinedIcon />}
-        </IconButton>
+        </IconButton> */}
         <IconButton>
           <NotificationsOutlinedIcon />
         </IconButton>
