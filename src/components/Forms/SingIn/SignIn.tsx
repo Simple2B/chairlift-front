@@ -283,20 +283,6 @@ const SignIn: React.FC<ISignIn> = ({}) => {
       </div>
 
       <div className="socialContainer">
-        {/* <div>
-          <ToastContainer
-            position="top-left"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
-        </div> */}
         <Link href="#" className="social">
           <GoogleLogin
             clientId={GOOGLE_CLIENT_ID ?? ''}
