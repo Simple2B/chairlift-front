@@ -6,11 +6,12 @@ import storageSession from 'reduxjs-toolkit-persist/lib/storage/session';
 import { persistReducer, persistStore } from 'redux-persist';
 // TODO: it is for merge state
 // import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
-import authGoogleSlice from './slices/Authentication/AuthenticationGoogleSlices';
+import authenticationSlice from './slices/Authentication/AuthenticationSlices';
 
 const persistConfig = {
   key: 'root',
   storage,
+  whitelist: ['userToken'],
   // TODO: merge state
   // stateReconciler: autoMergeLevel2,
 };
@@ -21,7 +22,7 @@ const userPersistConfig = {
 };
 
 export const rootReducer = combineReducers({
-  user: persistReducer(userPersistConfig, authGoogleSlice),
+  user: persistReducer(userPersistConfig, authenticationSlice),
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -29,7 +30,8 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
   reducer: persistedReducer,
   // middleware: [thunk],
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }).concat(logger),
 });
 
 export const persistor = persistStore(store);

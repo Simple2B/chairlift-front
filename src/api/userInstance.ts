@@ -1,24 +1,19 @@
-import { IGoogleUser } from '../types/user';
-import { instance } from './_axiosInstance';
+// import { instance } from './_axiosInstance';
 
 export const clientApi = {
-  //   : async (): Promise<IGoogleUser> => {
-  //     try {
-  //       const response = await instance().post('/user/create_user', data);
-  //       const res = response.data;
-  //       return res;
-  //     } catch (error: any) {
-  //       console.log(`POST createUserProvider: error message => ${error.message}`);
-  //       throw error;
-  //     }
+  // TODO: it is for example
+  // resetPassword: async (resetPasswordData: {
+  //   verification_token: string;
+  //   password: string;
+  // }): Promise<string> => {
+  //   try {
+  //     const response = await instance().post('/user/reset_password', resetPasswordData);
+  //     console.log('POST [/reset_password] successfully', response.data);
+  //     return response.data;
+  //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //   } catch (error: any) {
+  //     console.log(`POST [/reset_password] error message: ${error.message}`);
+  //     throw error;
+  //   }
+  // },
 };
-//   getUser: async (email: string): Promise<> => {
-//     // try {
-//     //   const response = await instance().get(`/${email}`);
-//     //   const res = response.data;
-//     //   return res;
-//     // } catch (error: any) {
-//     //   console.log(`POST getUser: error message => ${error.message}`);
-//     //   throw error;
-//     // }
-//   },

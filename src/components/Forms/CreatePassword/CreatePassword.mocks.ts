@@ -1,6 +1,6 @@
 import { ICreatePassword } from './CreatePassword';
 
-const base: ICreatePassword = { classes: { error: '' } };
+const base: ICreatePassword = {};
 
 export const mockCreatePasswordProps = {
   base,

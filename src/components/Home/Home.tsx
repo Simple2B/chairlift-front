@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Home.sass';
-import { Link as ReactLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -12,9 +12,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { GoogleLogout } from 'react-google-login';
 import { gapi } from 'gapi-script';
 import { RootState, useAppDispatch } from '../../store';
-import { logout } from '../../store/slices/Authentication/AuthenticationGoogleSlices';
 import { useSelector } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
+import { logout } from '../../store/slices/Authentication/AuthenticationSlices';
 
 const Copyright = () => {
   return (
@@ -106,7 +106,11 @@ const Home: React.FC<IHome> = () => {
         title="login"
       >
         {' '}
-        {success && <Avatar alt={'avatar'} src={user.picture} sx={{ marginRight: '7px' }} />}
+        {success && (
+          <NavLink to="/profile">
+            <Avatar alt={'avatar'} src={user.picture} sx={{ marginRight: '7px' }} />
+          </NavLink>
+        )}
         {userToken ? (
           <GoogleLogout
             clientId={GOOGLE_CLIENT_ID ?? ''}
@@ -116,9 +120,9 @@ const Home: React.FC<IHome> = () => {
             onLogoutSuccess={onLogoutSuccess}
           />
         ) : (
-          <ReactLink to="/auth">
+          <NavLink to="/auth">
             <LoginIcon sx={{ color: 'white' }} />
-          </ReactLink>
+          </NavLink>
         )}
       </Box>
       <Box
@@ -186,7 +190,11 @@ const Home: React.FC<IHome> = () => {
         >
           Visit Proto
           {/* TODO: link to main page if auth user */}
-          <Link color="inherit" href="/" sx={{ textIndent: '7px' }}>
+          <Link
+            color="inherit"
+            href={`${success ? '/profile' : '/auth'}`}
+            sx={{ textIndent: '7px' }}
+          >
             Dashboard
           </Link>
         </Typography>
