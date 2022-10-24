@@ -8,7 +8,6 @@ import Home from './components/Home/Home';
 import Forms from './components/Forms/Forms';
 import CreatePassword from './components/Forms/CreatePassword/CreatePassword';
 import Profile from './components/Profile/Profile';
-import Dashboard from './components/Profile/dashboard';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IApp {}

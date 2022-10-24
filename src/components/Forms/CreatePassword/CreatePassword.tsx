@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './CreatePassword.sass';
 import logoBG from '../../../img/logoBG.jpeg';
-import { NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Grid from '@mui/material/Grid';
@@ -13,7 +13,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import PasswordInput from '../../common/PasswordInput/PasswordInput';
-import { clientApi } from '../../../api/userInstance';
 import { instance } from '../../../api/_axiosInstance';
 import Modal from '@mui/material/Modal';
 import Loader from '../../common/Loader/Loader';

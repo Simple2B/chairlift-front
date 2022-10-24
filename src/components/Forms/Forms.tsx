@@ -7,25 +7,20 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-// import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AppBar, Toolbar } from '@mui/material';
 import logoBG from '../../img/logoBG.jpeg';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import 'react-toastify/dist/ReactToastify.css';
 import SignUp from './SignUp/SignUp';
 import SignIn from './SingIn/SignIn';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IForms {}
 
-// const theme = createTheme();
-
 // eslint-disable-next-line no-empty-pattern
 const Forms: React.FC<IForms> = ({}) => {
   const [isSignUp, setIsSignUp] = useState(false);
   const matches = useMediaQuery('(min-width:600px)');
   return (
-    // <ThemeProvider theme={theme}>
     <Grid container component="main" sx={{ height: '100vh' }}>
       <CssBaseline />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -141,7 +136,6 @@ const Forms: React.FC<IForms> = ({}) => {
         </Box>
       </Grid>
     </Grid>
-    // </ThemeProvider>
   );
 };
 

@@ -7,8 +7,6 @@ import GoogleIcon from '@mui/icons-material/Google';
 import AppleIcon from '@mui/icons-material/Apple';
 import { GoogleLogin } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { RootState, useAppDispatch } from '../../../store';
 import PasswordInput from '../../common/PasswordInput/PasswordInput';
 import Input from '../../common/Input/Input';
@@ -95,29 +93,11 @@ const SignIn: React.FC<ISignIn> = ({}) => {
     };
 
     dispatch(authentication(data));
-    // setTimeout(() => {
-    //   navigate('/profile');
-    // }, 3500);
-    // notify();
   };
-
-  // const notify = () =>
-  //   toast('LOGIN SUCCESS!', {
-  //     position: 'top-left',
-  //     autoClose: 3000,
-  //     hideProgressBar: false,
-  //     closeOnClick: true,
-  //     pauseOnHover: true,
-  //     draggable: true,
-  //     progress: undefined,
-  //     theme: 'light',
-  //   });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSignInSuccess = (res: any) => {
     console.log('LOGIN SUCCESS! Current user', res.profileObj);
-    // setIsGoogleAuthSuccess(true);
-    // signIn
     const data = {
       email: res.profileObj.email,
       username: res.profileObj.name,
@@ -125,10 +105,6 @@ const SignIn: React.FC<ISignIn> = ({}) => {
       picture: res.profileObj.imageUrl,
     };
     dispatch(authenticationGoogle(data));
-    // setTimeout(() => {
-    //   navigate('/profile');
-    // }, 3500);
-    // notify();
   };
 
   const onFailure = (res: unknown) => {
@@ -285,7 +261,7 @@ const SignIn: React.FC<ISignIn> = ({}) => {
         showPassword={showPassword}
         setHidePassword={setHidePassword}
       />
-      {/* TODO: add link for forgot password */}
+      {/* TODO: add link for forgot password (add api route) */}
       <div style={{ width: '100%', textAlign: 'right' }}>
         <Link href="#" variant="body2">
           Forgot password?
@@ -307,7 +283,7 @@ const SignIn: React.FC<ISignIn> = ({}) => {
       </div>
 
       <div className="socialContainer">
-        <div>
+        {/* <div>
           <ToastContainer
             position="top-left"
             autoClose={3000}
@@ -320,7 +296,7 @@ const SignIn: React.FC<ISignIn> = ({}) => {
             pauseOnHover
             theme="light"
           />
-        </div>
+        </div> */}
         <Link href="#" className="social">
           <GoogleLogin
             clientId={GOOGLE_CLIENT_ID ?? ''}

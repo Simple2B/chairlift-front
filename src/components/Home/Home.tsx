@@ -190,7 +190,11 @@ const Home: React.FC<IHome> = () => {
         >
           Visit Proto
           {/* TODO: link to main page if auth user */}
-          <Link color="inherit" href="/" sx={{ textIndent: '7px' }}>
+          <Link
+            color="inherit"
+            href={`${success ? '/profile' : '/auth'}`}
+            sx={{ textIndent: '7px' }}
+          >
             Dashboard
           </Link>
         </Typography>

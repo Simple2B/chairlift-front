@@ -3,7 +3,6 @@ import './SignUp.sass';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Input from '../../common/Input/Input';
-import { clientApi } from '../../../api/userInstance';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
